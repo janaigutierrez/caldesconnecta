@@ -1,33 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --ch-primary: #C75B2A;
-  --ch-primary-light: #E8875A;
-  --ch-primary-dark: #A04620;
-  --ch-secondary: #1B5E3B;
-  --ch-secondary-light: #2D8B5E;
-  --ch-accent: #F4A261;
-  --ch-bg: #FEFCF9;
-  --ch-surface: #FFFFFF;
-  --ch-surface-alt: #FFF5ED;
-  --ch-text: #1C1917;
-  --ch-text-muted: #78716C;
-  --ch-border: #E7E5E4;
+  --ch-primary:       #217A7A;
+  --ch-primary-light: #4D9B9B;
+  --ch-primary-dark:  #195E5E;
+  --ch-accent:        #A8D4D4;
+  --ch-bg:            #F7FAFA;
+  --ch-surface:       #FFFFFF;
+  --ch-surface-alt:   #EEF6F6;
+  --ch-text:          #1A2828;
+  --ch-text-muted:    #5E7A7A;
+  --ch-border:        #D5E8E8;
 }
 
 @theme inline {
-  --color-ch-primary: var(--ch-primary);
+  --color-ch-primary:       var(--ch-primary);
   --color-ch-primary-light: var(--ch-primary-light);
-  --color-ch-primary-dark: var(--ch-primary-dark);
-  --color-ch-secondary: var(--ch-secondary);
-  --color-ch-secondary-light: var(--ch-secondary-light);
-  --color-ch-accent: var(--ch-accent);
-  --color-ch-bg: var(--ch-bg);
-  --color-ch-surface: var(--ch-surface);
-  --color-ch-surface-alt: var(--ch-surface-alt);
-  --color-ch-text: var(--ch-text);
-  --color-ch-text-muted: var(--ch-text-muted);
-  --color-ch-border: var(--ch-border);
+  --color-ch-primary-dark:  var(--ch-primary-dark);
+  --color-ch-accent:        var(--ch-accent);
+  --color-ch-bg:            var(--ch-bg);
+  --color-ch-surface:       var(--ch-surface);
+  --color-ch-surface-alt:   var(--ch-surface-alt);
+  --color-ch-text:          var(--ch-text);
+  --color-ch-text-muted:    var(--ch-text-muted);
+  --color-ch-border:        var(--ch-border);
 }
 
 body {
@@ -38,15 +34,14 @@ body {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--ch-primary-light) transparent;
+  scrollbar-color: var(--ch-accent) transparent;
 }
 
-/* Tab fade */
+/* Tab transition */
 @keyframes tab-fade {
   from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 .animate-tab {
   animation: tab-fade 0.25s ease-out both;
 }
@@ -54,9 +49,8 @@ body {
 /* Modal — backdrop */
 @keyframes modal-backdrop {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
-
 .animate-backdrop {
   animation: modal-backdrop 0.15s ease-out both;
   will-change: opacity;
@@ -64,16 +58,9 @@ body {
 
 /* Modal — card */
 @keyframes modal-card {
-  from {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
 }
-
 .animate-modal-card {
   animation: modal-card 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
   will-change: transform, opacity;
@@ -88,9 +75,8 @@ body {
   font-size: 13px !important;
   font-weight: 500 !important;
   color: var(--ch-text) !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
 }
-
 .ch-tooltip::before {
   border-top-color: white !important;
 }

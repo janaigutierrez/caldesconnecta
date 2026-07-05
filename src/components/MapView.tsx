@@ -29,7 +29,7 @@ const CALDES_CENTER: L.LatLngExpression = [41.6317, 2.1681];
 /* Custom pin icon using inline SVG */
 function createPinIcon() {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="28" height="40">
-    <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 24 12 24s12-15 12-24C24 5.4 18.6 0 12 0z" fill="#C75B2A"/>
+    <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 24 12 24s12-15 12-24C24 5.4 18.6 0 12 0z" fill="#217A7A"/>
     <circle cx="12" cy="11" r="5" fill="white"/>
   </svg>`;
 
