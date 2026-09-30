@@ -1,278 +1,93 @@
-"use client";
+import Link from "next/link";
+import { Play, Search, MapPin, Briefcase, ArrowRight } from "lucide-react";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
-import dynamic from "next/dynamic";
-import { Search } from "lucide-react";
-import Header from "@/components/Header";
-import TabNav from "@/components/TabNav";
-import FilterBar from "@/components/FilterBar";
-import BusinessCard from "@/components/BusinessCard";
-import Modal from "@/components/Modal";
-import { NEGOCIS, CATEGORIES } from "@/data/negocis";
-import { CATEGORY_ICONS } from "@/lib/icons";
-import type { Tab, Categoria } from "@/types";
-
-const MapView = dynamic(() => import("@/components/MapView"), { ssr: false });
-
-const QUICK_TAGS = [
-  "brunch",
-  "gelat",
-  "vi",
-  "embotits",
-  "cuina catalana",
-  "pastisseria",
-  "ceràmica",
+const FEATURES = [
+  {
+    icon: Search,
+    title: "Cerca per allò que necessites",
+    text: "Escriu “brunch”, “ceràmica” o “vi” i et diem quin negoci de Caldes te l’ofereix.",
+  },
+  {
+    icon: MapPin,
+    title: "Troba’ls al mapa",
+    text: "Tots els negocis situats al mapa del poble, amb adreça i horaris a un clic.",
+  },
+  {
+    icon: Briefcase,
+    title: "Descobreix qui contracta",
+    text: "Els negocis que busquen personal ho marquen a la seva fitxa, ben visible.",
+  },
 ];
 
-export default function Home() {
-  const [activeTab, setActiveTab]           = useState<Tab>("negocis");
-  const [activeCategory, setActiveCategory] = useState<Categoria>("Tots");
-  const [negocisQuery, setNegocisQuery]     = useState("");
-  const [productesQuery, setProductesQuery] = useState("");
-  const [expandedId, setExpandedId]         = useState<number | null>(null);
-
-  /* Filtered for Negocis tab — searches by business name */
-  const filteredNegocis = useMemo(() => {
-    let r = NEGOCIS;
-    if (activeCategory !== "Tots")
-      r = r.filter((n) => n.categoria === activeCategory);
-    if (negocisQuery.trim()) {
-      const q = negocisQuery.toLowerCase();
-      r = r.filter((n) => n.nom.toLowerCase().includes(q));
-    }
-    return r;
-  }, [activeCategory, negocisQuery]);
-
-  /* Filtered for Productes tab — searches by tags and description */
-  const filteredProductes = useMemo(() => {
-    if (!productesQuery.trim()) return [];
-    const q = productesQuery.toLowerCase();
-    return NEGOCIS.filter(
-      (n) =>
-        n.tags.some((t) => t.toLowerCase().includes(q)) ||
-        n.descripcio.toLowerCase().includes(q)
-    );
-  }, [productesQuery]);
-
-  const openCard  = useCallback((id: number) => setExpandedId(id), []);
-  const closeCard = () => setExpandedId(null);
-  const selectedNegoci = NEGOCIS.find((n) => n.id === expandedId) ?? null;
-
-  useEffect(() => {
-    document.body.style.overflow = expandedId !== null ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [expandedId]);
-
-  const hasNegocisFilter =
-    activeCategory !== "Tots" || negocisQuery.trim() !== "";
-
+export default function Landing() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <header className="max-w-5xl mx-auto w-full px-4 py-6">
+        <img src="/logo.svg" alt="Caldes Connecta" className="h-12 w-auto" />
+      </header>
 
-      {/* Coming soon banner */}
-      <div className="bg-ch-surface-alt border-b border-ch-border">
-        <div className="max-w-5xl mx-auto px-4 py-2.5 flex items-center gap-2 text-sm">
-          <span className="bg-ch-primary text-white text-xs font-semibold px-2.5 py-0.5 rounded-full">
-            PRÒXIMAMENT
+      <main className="flex-1">
+        {/* Hero */}
+        <section className="max-w-3xl mx-auto px-4 pt-6 pb-14 text-center">
+          <span className="inline-block bg-ch-primary/10 text-ch-primary text-xs font-semibold px-3 py-1 rounded-full mb-5">
+            Caldes de Montbui
           </span>
-          <span className="text-ch-text-muted">
-            Estem preparant el directori complet. Això és una previsualització.
-          </span>
-        </div>
-      </div>
+          <h1 className="font-display text-5xl sm:text-6xl tracking-wide text-ch-text leading-tight text-balance">
+            Tots els negocis de Caldes, a un clic.
+          </h1>
+          <p className="mt-5 text-ch-text-muted text-base sm:text-lg leading-relaxed max-w-xl mx-auto text-balance">
+            Restaurants, botigues, serveis i artesans del poble reunits en un
+            sol directori. L&apos;estem construint amb els negocis del
+            municipi — mentrestant, aquí tens un tast de com funcionarà.
+          </p>
 
-      <TabNav activeTab={activeTab} onChange={setActiveTab} />
-
-      {hasNegocisFilter && activeTab === "negocis" && (
-        <FilterBar
-          category={activeCategory}
-          query={negocisQuery}
-          onClear={() => {
-            setActiveCategory("Tots");
-            setNegocisQuery("");
-          }}
-        />
-      )}
-
-      <main className="flex-1 max-w-5xl mx-auto w-full px-4 py-6">
-
-        {/* ── Negocis ── */}
-        {activeTab === "negocis" && (
-          <div key="negocis" className="animate-tab">
-            {/* Category pills */}
-            <div className="flex flex-wrap gap-2 mb-6">
-              {CATEGORIES.map((cat) => {
-                const Icon = CATEGORY_ICONS[cat];
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                      activeCategory === cat
-                        ? "bg-ch-primary text-white shadow-sm"
-                        : "bg-ch-surface text-ch-text-muted border border-ch-border hover:border-ch-primary/40 hover:text-ch-text"
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                    {cat}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Search by name */}
-            <div className="relative mb-6">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ch-text-muted" />
-              <input
-                type="text"
-                placeholder="Cerca per nom de negoci..."
-                value={negocisQuery}
-                onChange={(e) => setNegocisQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-ch-border bg-ch-surface text-sm placeholder:text-ch-text-muted focus:outline-none focus:ring-2 focus:ring-ch-primary/25 focus:border-ch-primary transition"
-              />
-            </div>
-
-            {/* Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {NEGOCIS.map((n) => (
-                <BusinessCard
-                  key={n.id}
-                  negoci={n}
-                  isMatch={filteredNegocis.includes(n)}
-                  onOpen={() => openCard(n.id)}
-                />
-              ))}
-            </div>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              href="/demo"
+              className="inline-flex items-center gap-2 bg-ch-primary text-white text-sm font-medium px-6 py-3 rounded-xl hover:bg-ch-primary-dark transition-colors shadow-sm"
+            >
+              Explora la demo
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
-        )}
+        </section>
 
-        {/* ── Productes ── */}
-        {activeTab === "productes" && (
-          <div key="productes" className="animate-tab">
-            <div className="max-w-2xl mx-auto mb-8">
-              <h2 className="text-xl font-semibold mb-2 text-center text-ch-text">
-                Què busques a Caldes?
-              </h2>
-              <p className="text-ch-text-muted text-sm text-center mb-5">
-                Escriu un producte o servei i et diem on trobar-lo.
-              </p>
-
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-ch-text-muted" />
-                <input
-                  type="text"
-                  placeholder='Ex: "brunch", "gelat artesà", "vi"...'
-                  value={productesQuery}
-                  onChange={(e) => setProductesQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 rounded-2xl border-2 border-ch-border bg-ch-surface text-base placeholder:text-ch-text-muted focus:outline-none focus:ring-2 focus:ring-ch-primary/25 focus:border-ch-primary transition"
-                />
-              </div>
-
-              {/* Quick tags */}
-              <div className="mt-4 flex flex-wrap gap-2 justify-center">
-                {QUICK_TAGS.map((tag) => (
-                  <button
-                    key={tag}
-                    onClick={() => setProductesQuery(tag)}
-                    className="px-3 py-1.5 rounded-lg bg-ch-surface border border-ch-border text-xs text-ch-text-muted hover:border-ch-primary/40 hover:text-ch-primary transition"
-                  >
-                    {tag}
-                  </button>
-                ))}
-              </div>
+        {/* Video placeholder */}
+        <section className="max-w-3xl mx-auto px-4 pb-16">
+          <div className="aspect-video w-full rounded-3xl border-2 border-dashed border-ch-border bg-ch-surface flex flex-col items-center justify-center gap-3">
+            <div className="w-14 h-14 rounded-full bg-ch-primary/10 flex items-center justify-center">
+              <Play className="w-6 h-6 text-ch-primary ml-0.5" fill="currentColor" />
             </div>
+            <p className="text-sm text-ch-text-muted">
+              Vídeo de presentació — pròximament
+            </p>
+          </div>
+        </section>
 
-            {/* Results */}
-            {productesQuery.trim() ? (
-              filteredProductes.length > 0 ? (
-                <div>
-                  <p className="text-sm text-ch-text-muted mb-4">
-                    {filteredProductes.length} resultat
-                    {filteredProductes.length !== 1 ? "s" : ""} per &ldquo;
-                    {productesQuery}&rdquo;
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredProductes.map((n) => (
-                      <BusinessCard
-                        key={n.id}
-                        negoci={n}
-                        isMatch
-                        onOpen={() => openCard(n.id)}
-                      />
-                    ))}
-                  </div>
+        {/* Features */}
+        <section className="max-w-4xl mx-auto px-4 pb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {FEATURES.map(({ icon: Icon, title, text }) => (
+              <div key={title} className="text-center sm:text-left">
+                <div className="w-10 h-10 rounded-lg bg-ch-primary/10 flex items-center justify-center mb-3 mx-auto sm:mx-0">
+                  <Icon className="w-5 h-5 text-ch-primary" />
                 </div>
-              ) : (
-                <div className="text-center py-12">
-                  <Search className="w-10 h-10 text-ch-text-muted/25 mx-auto mb-3" />
-                  <p className="text-ch-text-muted">
-                    Cap resultat per &ldquo;{productesQuery}&rdquo;
-                  </p>
-                  <p className="text-ch-text-muted text-sm mt-1">
-                    Prova amb una altra paraula clau
-                  </p>
-                </div>
-              )
-            ) : (
-              <div className="text-center py-12">
-                <Search className="w-10 h-10 text-ch-text-muted/25 mx-auto mb-3" />
-                <p className="text-ch-text-muted">
-                  Escriu alguna cosa per començar
+                <h3 className="font-display text-xl tracking-wide text-ch-text mb-1">
+                  {title}
+                </h3>
+                <p className="text-sm text-ch-text-muted leading-relaxed">
+                  {text}
                 </p>
               </div>
-            )}
+            ))}
           </div>
-        )}
-
-        {/* ── Mapa ── */}
-        {activeTab === "mapa" && (
-          <div key="mapa" className="animate-tab">
-            <div
-              className="rounded-2xl border border-ch-border overflow-hidden shadow-sm"
-              style={{ height: 450 }}
-            >
-              <MapView businesses={filteredNegocis} onPinClick={openCard} />
-            </div>
-
-            <div className="mt-6">
-              <h3 className="text-sm font-medium text-ch-text-muted mb-3">
-                {filteredNegocis.length} negoci
-                {filteredNegocis.length !== 1 ? "s" : ""} al mapa
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {filteredNegocis.map((n) => {
-                  const Icon = CATEGORY_ICONS[n.categoria];
-                  return (
-                    <button
-                      key={n.id}
-                      onClick={() => openCard(n.id)}
-                      className="flex items-center gap-3 p-3 rounded-xl bg-ch-surface border border-ch-border hover:border-ch-primary/30 transition text-left w-full"
-                    >
-                      <div className="w-8 h-8 rounded-lg bg-ch-primary/10 flex items-center justify-center shrink-0">
-                        <Icon className="w-4 h-4 text-ch-primary" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium truncate">{n.nom}</p>
-                        <p className="text-xs text-ch-text-muted">{n.adreca}</p>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
+        </section>
       </main>
-
-      {selectedNegoci && (
-        <Modal negoci={selectedNegoci} onClose={closeCard} />
-      )}
 
       <footer className="bg-ch-surface border-t border-ch-border mt-auto">
         <div className="max-w-5xl mx-auto px-4 py-6 text-center text-sm text-ch-text-muted">
-          <p>Caldes Connecta — Directori digital de Caldes de Montbui</p>
-          <p className="mt-1 text-xs opacity-50">Prototip · caldeshub.cat</p>
+          <p>Caldes Connecta — el directori digital de Caldes de Montbui</p>
+          <p className="mt-1 text-xs opacity-50">caldesconnecta.cat</p>
         </div>
       </footer>
     </div>

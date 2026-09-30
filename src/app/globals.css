@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --ch-primary:       #217A7A;
-  --ch-primary-light: #4D9B9B;
-  --ch-primary-dark:  #195E5E;
-  --ch-accent:        #A8D4D4;
-  --ch-bg:            #F7FAFA;
-  --ch-surface:       #FFFFFF;
-  --ch-surface-alt:   #EEF6F6;
-  --ch-text:          #1A2828;
-  --ch-text-muted:    #5E7A7A;
-  --ch-border:        #D5E8E8;
+  /* Terracota termal — inspirada en les teules i els banys romans de Caldes */
+  --ch-primary:       #C1622E;
+  --ch-primary-light: #E3946A;
+  --ch-primary-dark:  #96471F;
+  --ch-accent:        #F0C9A8;
+  --ch-stone:         #3D4A3A;
+  --ch-stone-light:   #6B7A63;
+  --ch-bg:            #F6F1E9;
+  --ch-surface:       #FFFDF8;
+  --ch-surface-alt:   #EFE7D8;
+  --ch-text:          #2B2620;
+  --ch-text-muted:    #6B6255;
+  --ch-border:        #E4D9C5;
+  --ch-hiring:        #4A5D3A;
+  --ch-hiring-bg:     #E7ECDD;
 }
 
 @theme inline {
@@ -18,18 +23,25 @@
   --color-ch-primary-light: var(--ch-primary-light);
   --color-ch-primary-dark:  var(--ch-primary-dark);
   --color-ch-accent:        var(--ch-accent);
+  --color-ch-stone:         var(--ch-stone);
+  --color-ch-stone-light:   var(--ch-stone-light);
   --color-ch-bg:            var(--ch-bg);
   --color-ch-surface:       var(--ch-surface);
   --color-ch-surface-alt:   var(--ch-surface-alt);
   --color-ch-text:          var(--ch-text);
   --color-ch-text-muted:    var(--ch-text-muted);
   --color-ch-border:        var(--ch-border);
+  --color-ch-hiring:        var(--ch-hiring);
+  --color-ch-hiring-bg:     var(--ch-hiring-bg);
+
+  --font-sans:    var(--font-roboto);
+  --font-display: var(--font-bebas);
 }
 
 body {
   background: var(--ch-bg);
   color: var(--ch-text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-roboto), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 * {

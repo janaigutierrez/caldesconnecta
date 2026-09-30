@@ -1,4 +1,4 @@
-import { MapPin } from "lucide-react";
+import { MapPin, Briefcase } from "lucide-react";
 import { CATEGORY_ICONS } from "@/lib/icons";
 import type { Negoci } from "@/types";
 
@@ -27,11 +27,17 @@ export default function BusinessCard({ negoci, isMatch, onOpen }: BusinessCardPr
           <Icon className="w-3 h-3" />
           {negoci.categoria}
         </span>
+        {negoci.contractant && (
+          <span className="absolute top-2.5 right-2.5 inline-flex items-center gap-1 bg-ch-hiring text-white text-[11px] font-semibold px-2 py-0.5 rounded-full shadow-sm">
+            <Briefcase className="w-3 h-3" />
+            Contracta
+          </span>
+        )}
       </div>
 
       {/* Info */}
       <div className="p-4">
-        <h3 className="font-semibold text-sm text-ch-text group-hover:text-ch-primary transition-colors">
+        <h3 className="font-display text-lg tracking-wide text-ch-text group-hover:text-ch-primary transition-colors">
           {negoci.nom}
         </h3>
         <p className="mt-1 text-xs text-ch-text-muted line-clamp-2 leading-relaxed">

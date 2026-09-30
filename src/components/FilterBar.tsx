@@ -1,15 +1,17 @@
+import { Briefcase } from "lucide-react";
 import type { Categoria } from "@/types";
 
 interface FilterBarProps {
   category: Categoria;
   query: string;
+  hiring: boolean;
   onClear: () => void;
 }
 
-export default function FilterBar({ category, query, onClear }: FilterBarProps) {
+export default function FilterBar({ category, query, hiring, onClear }: FilterBarProps) {
   const hasCategory = category !== "Tots";
   const hasQuery = query.trim() !== "";
-  if (!hasCategory && !hasQuery) return null;
+  if (!hasCategory && !hasQuery && !hiring) return null;
 
   return (
     <div className="bg-ch-surface-alt border-b border-ch-border">
@@ -23,6 +25,12 @@ export default function FilterBar({ category, query, onClear }: FilterBarProps) 
         {hasQuery && (
           <span className="bg-ch-accent/40 text-ch-primary-dark px-2.5 py-0.5 rounded-full text-xs font-medium">
             &ldquo;{query}&rdquo;
+          </span>
+        )}
+        {hiring && (
+          <span className="inline-flex items-center gap-1 bg-ch-hiring-bg text-ch-hiring px-2.5 py-0.5 rounded-full text-xs font-medium">
+            <Briefcase className="w-3 h-3" />
+            Contracta
           </span>
         )}
         <button

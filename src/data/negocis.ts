@@ -82,6 +82,7 @@ export const NEGOCIS: Negoci[] = [
       "gelat de temporada",
       "granissat",
       "infusions",
+      "creppes",
     ],
   },
   {
@@ -89,7 +90,7 @@ export const NEGOCIS: Negoci[] = [
     nom: "Can Carerac",
     categoria: "Serveis",
     descripcio:
-      "Experiències autèntiques a la Catalunya rural: gastronomia local, naturalesa i cultura.",
+      "Experiències gastronòmiques i culturals a la natura.",
     web: "https://cancarerac.netlify.app",
     telefon: null,
     horaris: null,
@@ -105,6 +106,7 @@ export const NEGOCIS: Negoci[] = [
       "cultura catalana",
       "excursions",
       "km 0",
+      "activitat",
     ],
   },
   {
@@ -113,7 +115,7 @@ export const NEGOCIS: Negoci[] = [
     categoria: "Comerç",
     descripcio:
       "Xarcuteria artesanal amb més de 120 anys d'història. Embotits, carn curada i cuina casolana de tradició familiar.",
-    web: null,
+    web: "https://abelartesans.cat",
     telefon: null,
     horaris: null,
     adreca: "Caldes de Montbui",
@@ -130,6 +132,8 @@ export const NEGOCIS: Negoci[] = [
       "botifarra",
       "pernil",
       "carn curada",
+      "catering",
+      "formatge",
     ],
   },
   {
@@ -155,6 +159,7 @@ export const NEGOCIS: Negoci[] = [
       "celler",
       "maridatge",
       "degustació",
+      "vermut",
     ],
   },
   {

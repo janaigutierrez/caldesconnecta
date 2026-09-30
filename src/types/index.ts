@@ -14,4 +14,5 @@ export interface Negoci {
   lat: number;
   lng: number;
   tags: string[];
+  contractant?: boolean;
 }

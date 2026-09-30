@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 610 235" width="610" height="235" role="img" aria-label="Caldes Connecta">
   <defs>
     <linearGradient id="swooshGrad" x1="21" y1="0" x2="558" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0%"   stop-color="#1A6E72" stop-opacity="1"/>
-      <stop offset="60%"  stop-color="#4DB5B9" stop-opacity="0.88"/>
-      <stop offset="100%" stop-color="#88CDD0" stop-opacity="0.50"/>
+      <stop offset="0%"   stop-color="#96471F" stop-opacity="1"/>
+      <stop offset="60%"  stop-color="#C1622E" stop-opacity="0.88"/>
+      <stop offset="100%" stop-color="#E3946A" stop-opacity="0.50"/>
     </linearGradient>
   </defs>
 
@@ -13,7 +13,7 @@
     font-family="system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
     font-weight="900"
     font-size="92"
-    fill="#1A6E72"
+    fill="#96471F"
     letter-spacing="3"
   >CALDES</text>
 
@@ -23,11 +23,11 @@
     font-family="system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif"
     font-weight="900"
     font-size="92"
-    fill="#1A6E72"
+    fill="#96471F"
   >CONNECTA</text>
 
   <!-- Cercle d'inici de la corba (costat esquerre, alineat amb la C) -->
-  <circle cx="21" cy="178" r="7" fill="none" stroke="#1A6E72" stroke-width="2.5"/>
+  <circle cx="21" cy="178" r="7" fill="none" stroke="#96471F" stroke-width="2.5"/>
 
   <!-- Corba: puja per sobre de CALDES i baixa fins al cursor -->
   <path
@@ -42,13 +42,13 @@
   <g transform="translate(554, 140) rotate(12)">
     <path
       d="M 0,0 L 0,27 L 8,20 L 13,30.5 L 17,29 L 12,18.5 L 21.5,18.5 Z"
-      fill="#1A6E72"
+      fill="#96471F"
       opacity="0.72"
     />
   </g>
 
   <!-- Línies de "clic" irradiant del cursor -->
-  <g stroke="#4DB5B9" stroke-width="2.2" stroke-linecap="round" opacity="0.60">
+  <g stroke="#C1622E" stroke-width="2.2" stroke-linecap="round" opacity="0.60">
     <line x1="577" y1="132" x2="586" y2="122"/>
     <line x1="582" y1="151" x2="593" y2="149"/>
     <line x1="574" y1="168" x2="581" y2="177"/>

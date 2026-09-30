@@ -1,4 +1,4 @@
-import { Clock, Phone, MapPin, ExternalLink, X } from "lucide-react";
+import { Clock, Phone, MapPin, ExternalLink, X, Briefcase } from "lucide-react";
 import { CATEGORY_ICONS } from "@/lib/icons";
 import type { Negoci } from "@/types";
 
@@ -38,11 +38,19 @@ export default function Modal({ negoci, onClose }: ModalProps) {
         {/* Content */}
         <div className="p-6 space-y-5">
           <div>
-            <span className="inline-flex items-center gap-1 text-xs font-medium text-ch-primary bg-ch-primary/10 px-2.5 py-1 rounded-full mb-2">
-              <Icon className="w-3 h-3" />
-              {negoci.categoria}
-            </span>
-            <h2 className="text-xl font-bold text-ch-text">{negoci.nom}</h2>
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <span className="inline-flex items-center gap-1 text-xs font-medium text-ch-primary bg-ch-primary/10 px-2.5 py-1 rounded-full">
+                <Icon className="w-3 h-3" />
+                {negoci.categoria}
+              </span>
+              {negoci.contractant && (
+                <span className="inline-flex items-center gap-1 text-xs font-medium text-ch-hiring bg-ch-hiring-bg px-2.5 py-1 rounded-full">
+                  <Briefcase className="w-3 h-3" />
+                  Contracta
+                </span>
+              )}
+            </div>
+            <h2 className="font-display text-3xl tracking-wide text-ch-text">{negoci.nom}</h2>
             <p className="text-sm text-ch-text-muted mt-1 leading-relaxed">
               {negoci.descripcio}
             </p>
